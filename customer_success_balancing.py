@@ -29,12 +29,24 @@ def count_customers_per_cs(available_cs, customer_levels):
 
     return cs_customers_count
 
-
 def find_closest_cs(available_cs, customer_level):
-    return min(available_cs, key=lambda cs: abs(cs["Score"] - customer_level))
+    available_cs.sort(key=lambda cs: cs["Score"])
+    for cs in available_cs:
+        if cs["Score"] >= customer_level:
+            return cs
+    return None
+
 
 def find_best_customer_success(cs_customers_count):
     max_customers = max(cs_customers_count.values())
     best_cs = [cs for cs, count in cs_customers_count.items() if count == max_customers]
 
-    return best_cs[0] if len(best_cs) == 1 else 0
+    if len(best_cs) == 1:
+        return best_cs[0]
+    else:
+        # Verifica se todos os Customer Success com o mesmo número máximo de clientes têm a mesma quantidade
+        if all(cs_customers_count[cs] == max_customers for cs in best_cs):
+            return 0
+        else:
+            # Caso contrário, retorna o primeiro Customer Success do empate
+            return best_cs[0]
