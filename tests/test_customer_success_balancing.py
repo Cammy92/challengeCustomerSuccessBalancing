@@ -269,5 +269,111 @@ class TestCustomerSuccessBalancing(unittest.TestCase):
         )
         self.assertEqual(1, result)
 
+    def test_case_thirteen(self):
+        customer_success_levels = []
+        customer_levels = []
+        customer_success_unavailable = []
+
+        result = customerSuccessBalancingDistribution(
+            customer_success_levels, customer_levels, customer_success_unavailable
+        )
+        self.assertEqual(0, result)
+
+    def test_case_fourteen(self):
+        customer_success_levels = [
+            {"ID": 1, "Score": 50},
+            {"ID": 2, "Score": 100},
+            {"ID": 3, "Score": 150},
+        ]
+        customer_levels = [
+            {"ID": 1, "Score": 20},
+            {"ID": 2, "Score": 30},
+            {"ID": 3, "Score": 35},
+        ]
+        customer_success_unavailable = []
+
+        result = customerSuccessBalancingDistribution(
+            customer_success_levels, customer_levels, customer_success_unavailable
+        )
+        self.assertEqual(result, 1)
+
+    def test_case_fifteen(self):
+        customer_success_levels = [
+            {"ID": 1, "Score": 50},
+        ]
+        customer_levels = [
+            {"ID": 1, "Score": 20},
+            {"ID": 2, "Score": 30},
+            {"ID": 3, "Score": 35},
+        ]
+        customer_success_unavailable = []
+
+        result = customerSuccessBalancingDistribution(
+            customer_success_levels, customer_levels, customer_success_unavailable
+        )
+        self.assertEqual(result, 1)
+
+    def test_case_sixteen(self):
+        customer_success_levels = [
+            {"ID": 1, "Score": 50},
+            {"ID": 2, "Score": 100},
+            {"ID": 3, "Score": 150},
+        ]
+        customer_levels = [
+            {"ID": 1, "Score": 20},
+            {"ID": 2, "Score": 30},
+            {"ID": 3, "Score": 35},
+        ]
+        customer_success_unavailable = []
+
+        result = customerSuccessBalancingDistribution(
+            customer_success_levels, customer_levels, customer_success_unavailable
+        )
+        self.assertEqual(result, 1)
+
+    def test_case_seventeen(self):
+        customer_success_levels = [{"ID": i, "Score": i} for i in range(1, 10001)]
+        customer_levels = [{"ID": i, "Score": 10000 - i} for i in range(1, 10001)]
+        customer_success_unavailable = []
+
+        result = customerSuccessBalancingDistribution(
+            customer_success_levels, customer_levels, customer_success_unavailable
+        )
+        self.assertEqual(result, 1)
+
+    def test_case_eighteen(self):
+        customer_success_levels = [
+            {"ID": 1, "Score": 1},
+            {"ID": 2, "Score": 10000},
+        ]
+        customer_levels = [
+            {"ID": 1, "Score": 10000},
+            {"ID": 2, "Score": 1},
+        ]
+        customer_success_unavailable = []
+
+        result = customerSuccessBalancingDistribution(
+            customer_success_levels, customer_levels, customer_success_unavailable
+        )
+        self.assertEqual(result, 0)
+
+    def test_case_nineteen(self):
+        customer_success_levels = [
+            {"ID": 1, "Score": 50},
+            {"ID": 2, "Score": 100},
+            {"ID": 2, "Score": 150},
+        ]
+        customer_levels = [
+            {"ID": 1, "Score": 20},
+            {"ID": 2, "Score": 30},
+            {"ID": 3, "Score": 35},
+        ]
+        customer_success_unavailable = []
+
+        result = customerSuccessBalancingDistribution(
+            customer_success_levels, customer_levels, customer_success_unavailable
+        )
+        self.assertEqual(result, 1)
+
     if __name__ == '__main__':
         unittest.main()
